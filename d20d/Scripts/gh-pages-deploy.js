@@ -9,7 +9,7 @@ const fs = require("fs");
     await execa("git", ["checkout", "gh-pages"]);
     console.log("Changing files...");
     await execa("find", ["./", "-maxdepth", "1", "-type", "f", "-exec", "rm", "-iv", "-f", "{}\;"]);
-    await execa("mv", ["-v", ".", "."]);
+    await execa("mv", ["-v", ".gitignore", "."]);
     await execa("mv", ["-v", "dist/*", "."]);
     await execa("rm", ["-r", "dist"]);
     console.log("Committing new files...");
