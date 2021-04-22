@@ -3,20 +3,14 @@ const execa = require("execa");
 const fs = require("fs");
 (async () => {
   try {
-    await execa("git", ["checkout", "-f", "gh-pages"]);
-    // eslint-disable-next-line no-console
-    console.log("Building started...");
-    await execa("npm", ["run", "build"]);
-    // Understand if it's dist or build folder
-    const folderName = fs.existsSync("dist") ? "dist" : "build";
-    await execa("git", ["--work-tree", folderName, "add", "--all"]);
-    await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages"]);
-    console.log("Pushing to gh-pages...");
-    await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
-    await execa("rm", ["-r", folderName]);
-    await execa("git", ["checkout", "-f", "master"]);
-    await execa("git", ["branch", "-D", "gh-pages"]);
-    console.log("Successfully deployed, check your settings");
+    await execa("ng", ["build", "--base-href", "https://peltos.github.io/d20d/"]);
+    await execa("git", ["checkout", "gh-pages"]);
+    await execa("for", ["r", "in", "$(find", "./", "-type", "f", "-maxdepth", "1);do", "rm", "-v", "$r;done"]);
+    await execa("mv", ["-v", "dist/*", "."]);
+    await execa("rm", ["-r", "dist"]);
+    await execa("for", ["r", "in", "$(find", "./", "-type", "f", "-maxdepth", "1);do", "git", "add", "$r;done"]);
+    await execa("git", ["commit", "-m", "\"gh-pages changes\""]);
+    await execa("git", ["push"]);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e.message);
