@@ -14,7 +14,7 @@ const fs = require("fs");
     await execa("rm", ["-r", "dist"]);
     await execa("rm", ["-r", "d20d"]);
     console.log("Committing new files...");
-    await execa("find", ["./", "-maxdepth", "1", "-type", "f", "-exec", "git", "add", "{}\;"]);
+    await execa("git", ["add", "."]);
     await execa("git", ["commit", "-m", "\"gh-pages changes\""]);
     await execa("git", ["push"]);
     console.log("Done!!");
