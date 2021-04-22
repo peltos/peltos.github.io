@@ -15,8 +15,10 @@ const fs = require("fs");
     await execa("rm", ["-r", "d20d"]);
     console.log("Committing new files...");
     await execa("git", ["add", "."]);
-    await execa("git", ["commit", "-m", "\"gh-pages changes\""]);
+    await execa("git", ["commit", "-m", "gh-pages changes"]);
     await execa("git", ["push"]);
+    console.log("Returning to master branch...");
+    await execa("git", ["checkout", "master"]);
     console.log("Done!!");
   } catch (e) {
     // eslint-disable-next-line no-console
