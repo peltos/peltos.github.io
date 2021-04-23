@@ -1,3 +1,11 @@
+<!-- Pass the component class as an argument to add and remove based on the component class -->
+<button (click)="addComponent(PlotpointComponentClass)">Add</button>
+<button (click)="removeComponent(PlotpointComponentClass)">Remove</button>
+
 <div>
-  D20 Drafts story builder (placeholder)
+  <form #myForm="ngForm" (ngSubmit)="onSubmitTemplateBased(myForm)">
+    <!-- Use ng-template to ensure that the generated components end up in the right place -->
+    <ng-template #container > </ng-template>
+    <button type="submit" [disabled]="!myForm.valid">Submit</button>
+  </form>
 </div>
