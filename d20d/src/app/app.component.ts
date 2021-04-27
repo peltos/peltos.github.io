@@ -20,6 +20,8 @@ export class AppComponent {
   private components = [];
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  
+  public ngOnInit() {}
 
   public addComponent(PlotpointComponentClass: Type<any>) {
     // Create component dynamically inside the ng-template
@@ -27,8 +29,7 @@ export class AppComponent {
       PlotpointComponentClass
     );
     const component = this.container.createComponent(componentFactory);
-    component.instance.newItemEvent.subscribe(val => console.log(val));
-    
+    component.instance.newItemEvent.subscribe((val) => console.log(val));
 
     // Push the component so that we can keep track of which components are created
     this.components.push(component);
@@ -50,5 +51,27 @@ export class AppComponent {
 
   public onSubmitTemplateBased(user) {
     console.log(user);
+  }
+
+  public omit_special_char(event) {
+    var k;
+    k = event.charCode; //         k = event.keyCode;  (Both can be used)
+    if (k === 32) {
+      if (
+        event.target.value
+          .charAt(event.target.value.length - 1)
+          .charCodeAt(0) === 95
+      )
+        return false;
+      event.target.value = event.target.value.concat('_');
+    }
+
+    return (
+      (k > 64 && k < 91) ||
+      (k > 96 && k < 123) ||
+      k == 95 ||
+      k == 8 ||
+      (k >= 48 && k <= 57)
+    );
   }
 }

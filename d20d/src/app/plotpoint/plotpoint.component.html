@@ -1,11 +1,22 @@
-<textarea
-  type="text"
-  (change)="addNewItem($event)"
-  name="content"
-  placeholder="Content..." 
-  required
-></textarea>
-<br>
-<input type="text" (change)="addNewItem($event)" name="imageFile" placeholder="Image url" />
-<br>
-<hr />
+<div>
+  <mat-form-field appearance="outline">
+    <mat-label>Content</mat-label>
+    <textarea
+      matInput
+      type="text"
+      (change)="addNewItem($event)"
+      name="content"
+      required
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Image URL</mat-label>
+    <input
+      matInput
+      type="text"
+      (change)="addNewItem($event)"
+      name="imageFile"
+    />
+  </mat-form-field>
+  <button (click)="removeComponent(PlotpointComponentClass)">Remove</button>
+</div>
